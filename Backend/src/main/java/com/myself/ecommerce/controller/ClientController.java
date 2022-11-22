@@ -1,11 +1,14 @@
 package com.myself.ecommerce.controller;
 
 import com.myself.ecommerce.model.Client;
-import com.myself.ecommerce.repository.ClientRepository;
 import com.myself.ecommerce.service.ClientService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,10 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class ClientController {
 
     @Autowired
-    ClientRepository clientRepository;
-
-    @Autowired
     ClientService clientService;
+
+    @GetMapping("/clients")
+    public List<Client> getClients() {
+        return clientService.getClients();
+    }
 
     @PostMapping("/register")
     public ResponseEntity<Object> register(@RequestBody Client client) {

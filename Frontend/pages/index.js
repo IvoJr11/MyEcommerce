@@ -1,9 +1,8 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import Header from '../components/Header'
+import Navbar from '../components/Navbar'
 import styles from '../styles/Home.module.css'
 
-export default function Home() {
+export default function Home({ clients }) {
   return (
     <div className={styles.container}>
       <Head>
@@ -13,9 +12,30 @@ export default function Home() {
       </Head>
       
       <main>
-        <Header />
-        <h1>E-Commerce</h1>
+        <header className={styles.header}>
+          <h1>E-Commerce</h1>
+        </header>
+        <Navbar />
+        {
+          clients.map(client =>
+            <div key={client.id}>
+              <h4>{client.name + " " + client.lastName}</h4>
+              <small>{client.email}</small>
+            </div>
+          )
+        }
       </main>
     </div>
   )
+}
+
+export async function getServerSideProps () {
+  const response = await fetch('http://localhost:8080/api/clients')
+  const clients = await response.json()
+  console.log(clients)
+  return {
+    props: {
+      clients
+    }
+  }
 }
