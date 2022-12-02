@@ -5,3 +5,63 @@
   width: 100vw;
   color: rgb(63, 63, 63);
 }
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  height: 100vh;
+  width: 100vw;
+}
+
+.loginInputs {
+  outline: none;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  color: rgb(114, 114, 114);
+  background-color: #F4F5FF;
+  width: 70%;
+  height: 45px;
+}
+
+.loginInputs::-webkit-input-placeholder {
+  color: rgb(114, 114, 114);
+}
+
+.loginButton {
+  color: white;
+  width: 70%;
+  height: 45px;
+  background-color: #666CD9;
+  border-radius: 20px;
+  padding: 10px 20px;
+  outline: none;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 466px) {
+  .container {
+    background-color: #403873;
+  }
+  
+  .loginForm {
+    background-color: white;
+    height: 80vh;
+    width: 500px;
+    border-radius: 25px;
+    box-shadow: 0px 0px 8px 1px black;
+  }
+}
