@@ -1,11 +1,6 @@
 package com.myself.ecommerce.model;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,5 +25,7 @@ public class Client {
     private String cellPhone;
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Role> roles = new ArrayList<>();
+    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE})
+    private CreditCard creditCard;
     
 }

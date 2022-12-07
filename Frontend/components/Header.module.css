@@ -2,16 +2,17 @@
   position: absolute;
   bottom: 0;
   width: 100%;
+  height: 65px;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  background-color: darkgrey;
+  background-color: rgba(64, 56, 115, 1);
   padding: 10px;
 }
 
 .navIcon {
-  border-radius: 15px;
+  border-radius: 20px;
 }
 
 .topHeader {
@@ -27,4 +28,13 @@
   border-radius: 15px;
   border: none;
   outline: none;
+}
+
+.color-theme {
+  color: rgba(13, 13, 13, 1);
+  color: rgba(64, 56, 115, 1);
+  color: rgba(102, 108, 217, 1);
+  color: rgba(130, 134, 217, 1);
+  color: rgba(156, 159, 217, 1);
+  color: rgba(242, 242, 242, 1);
 }
