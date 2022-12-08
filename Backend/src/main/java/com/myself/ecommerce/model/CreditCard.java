@@ -19,6 +19,7 @@ public class CreditCard {
 //    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE})
 //    private Client client;
     private String number;
+    private double mount;
     private int cvv;
     private LocalDateTime creationDate;
     private LocalDateTime expirationDate;

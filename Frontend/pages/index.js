@@ -43,7 +43,7 @@ export default function Login() {
         <input type='email' placeholder='Email' onChange={handleUsername} className={styles.loginInputs} />
         <input type='password' placeholder='Password' onChange={handlePassword} className={styles.loginInputs} />
         <button className={styles.loginButton} >Login</button>
-        <small style={{marginTop: '10px'}}>You don&apos;t have a account? <Link href='/register' style={{color: '#666CD9'}} >Sing in</Link></small>
+        <small style={{marginTop: '10px'}}>You don&apos;t have a account? <Link href='/register' className={styles.signInText} >Sing in</Link></small>
       </form>
       {/* <Navbar /> */}
     </div>

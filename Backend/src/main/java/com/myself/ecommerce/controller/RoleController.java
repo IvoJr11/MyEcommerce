@@ -15,7 +15,7 @@ import com.myself.ecommerce.service.RoleService;
 
 @RestController
 @RequestMapping("/api")
-public class RoleControler {
+public class RoleController {
   
   @Autowired
   RoleService roleService;
