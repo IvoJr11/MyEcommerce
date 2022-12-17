@@ -2,6 +2,7 @@ import {parseCookies} from 'nookies'
 
 export const getTransactions = async (username) => {
   const cookies = parseCookies()
+  console.log(cookies)
   const token = cookies.acc_tkn
   const config = {
     headers: {
@@ -11,12 +12,27 @@ export const getTransactions = async (username) => {
       'Access-Control-Allow-methods': '*',
     },
   };
+  const data = fetch(`http://localhost:8080/api/transaction/getAll?username=${username}`, config)
+    .then((response) => {
+      if(!response.ok) {
+        return Promise.reject(response)
+      }
+      return response.json()
+    })
+    .then(responseJson => {
+      console.log(responseJson)
+      return responseJson
+    })
+    .catch((error) => {
+      const failedFetch = error.json().then(json => {
+        console.log(error.status + " - " + json.error_message)
+        return {
+          status: error.status,
+          message: json.error_message
+        }
+      })
+      return failedFetch
+    })
 
-  try {
-    const response = await fetch(`http://localhost:8080/api/transaction/getAll?username=${username}`, config)
-    const body = await response.json()
-    return body
-  } catch (error) {
-    console.log(error);
-  }
+  return data
 } 

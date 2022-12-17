@@ -13,6 +13,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.transaction.Transactional;
 import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @RestController
@@ -61,8 +62,8 @@ public class TransactionController {
         clientService.addClient(sourceClient);
         clientService.addClient(destinationClient);
 
-        transactionService.saveTransaction(new Transaction(transactionInfo.getName(), transactionInfo.getAmount(), transactionInfo.getDescription(), TransactionType.DEBIT, sourceClient));
-        transactionService.saveTransaction(new Transaction(transactionInfo.getName(), transactionInfo.getAmount(), transactionInfo.getDescription(), TransactionType.CREDIT, destinationClient));
+        transactionService.saveTransaction(new Transaction(transactionInfo.getName(), transactionInfo.getAmount(), transactionInfo.getDescription(), TransactionType.DEBIT, LocalDateTime.now(), sourceClient));
+        transactionService.saveTransaction(new Transaction(transactionInfo.getName(), transactionInfo.getAmount(), transactionInfo.getDescription(), TransactionType.CREDIT, LocalDateTime.now(), destinationClient));
 
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/transaction/create").toUriString());
         return ResponseEntity.created(uri).body("Transaction has been complete successfully");

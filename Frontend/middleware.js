@@ -8,19 +8,19 @@ export default async function middleware(request) {
   //const error_tkn = request.cookies.get('error')?.value
   const secret = new TextEncoder().encode('secret')
 
-  // if(url.includes('/home')) {
-  //   if(acc_tkn === undefined) {
-  //     return NextResponse.redirect(new URL('/', request.url))
-  //   }
-  //   try {
-  //     const { payload } = await jwtVerify(acc_tkn, secret)
-  //     console.log(payload)
-  //     return NextResponse.next()
-  //   } catch (error) {
-  //     console.log(error)
-  //     return NextResponse.redirect(new URL('/', request.url))
-  //   }
-  // }
+  if(url.includes('/home')) {
+    if(acc_tkn === undefined) {
+      return NextResponse.redirect(new URL('/', request.url))
+    }
+    try {
+      const { payload } = await jwtVerify(acc_tkn, secret)
+      console.log(payload)
+      return NextResponse.next()
+    } catch (error) {
+      console.log(error)
+      return NextResponse.redirect(new URL('/', request.url))
+    }
+  }
 
   return NextResponse.next()
 }

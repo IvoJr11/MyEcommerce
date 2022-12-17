@@ -2,12 +2,14 @@ import { useState } from "react"
 import Link from "next/link"
 import Head from "next/head"
 import Image from "next/image"
-
 import styles from '../styles/Home.module.css'
 
-import Logo from '../public/LogoPackage/logo_transparentv2.png'
 import loginFetch from '../services/LoginFetch'
 import { useRouter } from "next/router"
+
+// import Logo from '../public/LogoPackage/logo_transparentv2.png'
+import Logo from '../public/ModerLogoPack/logo(2).png'
+// import Logo from '../public/ModerLogoPack/logo_transparent(2).png'
 
 export default function Login() {
   const [username, setUsername] = useState('')
@@ -35,7 +37,7 @@ export default function Login() {
       </Head>
 
       <form onSubmit={handleSubmit} className={styles.loginForm}>
-        <Image src={Logo} alt='logo' width={80} />
+        <Image style={{borderRadius: '45px'}} src={Logo} alt='logo' width={100} height={100} />
         <div style={{ margin: '5px 0 35px', textAlign: 'center'}}>
           <h1 style={{ fontWeight: 'initial', fontSize: '30px'}}>Welcome back</h1>
           <p style={{fontSize: '15px', color: 'rgb(114, 114, 114)'}}>Enter your credentials to login.</p>

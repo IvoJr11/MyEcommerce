@@ -15,6 +15,7 @@ export default async function LoginFetch(username, password) {
   })
     .then(res => res.json())
     .then(data => {
+      console.log(data)
       setCookie(null, 'acc_tkn', data.access_token, {
         maxAge: 30*24*60*60,
         path: '/',
@@ -27,6 +28,4 @@ export default async function LoginFetch(username, password) {
     .catch(error => {
       console.log(error)
     })
-
-  return 'caballo'
 }
