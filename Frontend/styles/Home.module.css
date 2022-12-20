@@ -81,18 +81,6 @@
  -----------
 */
 
-
-/* .homeDiv {
-  width: 100vw;
-  background-color: rgb(206, 206, 206);
-  height: 100px;
-  border-radius: 15px;
-  padding: 10px 15px;
-  display: flex;
-  justify-content: space-between;
-  font-size: large;
-} */
-
 .cardDiv {
   background-image: url("../public/AnimatedBg.svg");
   background-position: center;

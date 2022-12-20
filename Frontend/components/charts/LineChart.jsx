@@ -25,9 +25,16 @@ ChartJS.register(
 )
 
 export default function LineChart(props) {
-  const dates = []
-  const amounts = []
-  const {transactions} = props
+  const dates = {
+    debit: [],
+    credit: [],
+    all: []
+  }
+  const amounts = {
+    debit: [],
+    credit: []
+  }
+  const { transactions, color, lineColor } = props
   const [data, setData] = useState({datasets: []})
   const [options, setOptions] = useState({})
   
@@ -35,10 +42,15 @@ export default function LineChart(props) {
   
   useEffect(() => {
     transactions.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()).forEach(transaction => {
-      dates.push(formatDate(transaction.date).dayAndMonth)
-      if(transaction.type === 'DEBIT') amounts.push(transaction.amount * (-1))
-      if(transaction.type === 'CREDIT') amounts.push(transaction.amount)
-      // amounts.push(transaction.amount)
+      if(transaction.type === 'DEBIT') {
+        dates.debit.push(formatDate(transaction.date).dayAndMonth)
+        amounts.debit.push(transaction.amount)
+      }
+      if(transaction.type === 'CREDIT') {
+        dates.credit.push(formatDate(transaction.date).dayAndMonth)
+        amounts.credit.push(transaction.amount)
+      }
+      dates.all.push(formatDate(transaction.date).dayAndMonth)
     })
     
     const chart = chartRef.current
@@ -46,24 +58,34 @@ export default function LineChart(props) {
       return
     }
     
-    function createGradient(color) {
+    function createGradient() {
       const gradient = chart.ctx.createLinearGradient(0, 0, 0, 500)
       gradient.addColorStop(0, color)
-      gradient.addColorStop(0.5, "rgba(255,255,255,0.6)")
+      gradient.addColorStop(0.35, "rgba(255,255,255,0.6)")
       gradient.addColorStop(1, "rgba(255,255,255,0.6)")
       return gradient
     }
     
     setData({
-      labels: dates,
+      labels: dates.credit,
       datasets: [{
-        data: amounts,
-        borderColor: 'red',
+        data: amounts.credit,
+        borderColor: lineColor,
         pointStyle: false,
-        backgroundColor: createGradient('#F16F6F'),
+        backgroundColor: createGradient(),
+        // backgroundColor: '#F16F6F',
         fill: true,
         tension: 0.4
-      }]
+      },
+      // {
+      //   data: amounts.debit,
+      //   borderColor: '#6C3FFD',
+      //   pointStyle: false,
+      //   backgroundColor: createGradient('#6C3FFD'),
+      //   fill: true,
+      //   tension: 0.4
+      // }
+    ]
     })
     setOptions({
       plugins: {
@@ -98,7 +120,7 @@ export default function LineChart(props) {
   }, [transactions])
   
   return(
-    <div style={{width: '100%'}}>
+    <div>
       <Line data={data} options={options} ref={chartRef} />
     </div>
   )

@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-import styles from './Header.module.css'
+import styles from './Navbar.module.css'
 import logo from '../public/ModerLogoPack/logo(2).png'
 import home from '../public/noun-home-1145514.svg'
 import transaction from '../public/noun-transaction-3844872.svg'
