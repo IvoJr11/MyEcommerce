@@ -13,6 +13,7 @@
     "@emotion/styled": "^11.10.5",
     "@mui/material": "^5.11.0",
     "chart.js": "^4.1.0",
+    "formik": "^2.2.9",
     "jose": "^4.11.1",
     "next": "13.0.3",
     "nookies": "^2.5.2",

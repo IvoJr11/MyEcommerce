@@ -5,7 +5,7 @@ export default async function LoginFetch(username, password) {
     'username': username,
     'password': password
   })
-  await fetch('http://localhost:8080/api/login', {
+  const response = await fetch('http://localhost:8080/api/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -13,7 +13,13 @@ export default async function LoginFetch(username, password) {
     },
     body: data
   })
-    .then(res => res.json())
+    .then(res => {
+      console.log(res)
+      if(!res.ok) {
+        return Promise.reject(res)
+      }
+      return res.json()
+    })
     .then(data => {
       console.log(data)
       setCookie(null, 'acc_tkn', data.access_token, {
@@ -25,7 +31,17 @@ export default async function LoginFetch(username, password) {
         path: '/',
       })
     })
-    .catch(error => {
+    .catch((error) => {
       console.log(error)
+      const failedFetch = error.json().then(json => {
+        console.log(error.status + " - " + json.error_message)
+        return {
+          status: error.status,
+          message: json.error_message
+        }
+      })
+      return failedFetch
     })
+  
+  return response
 }

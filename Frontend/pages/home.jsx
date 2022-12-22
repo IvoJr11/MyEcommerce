@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
+import useMediaQuery from '@mui/material/useMediaQuery'
 
 import styles from '../styles/Home.module.css'
 import { getTransactions } from "../services/GetFetch";
@@ -12,7 +13,6 @@ import { theme } from "../theme";
 import { List, ListItem, ListItemIcon, ListItemText, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import ShopLogo from '../public/shopping-cart.png'
-import PlusPlogo from '../public/plus (1).png'
 import MastercardLogo from '../public/LogoPackage/Mastercard-Logo.wine.png'
 import discountDraw from '../public/undraw_statistic_chart_re_w0pk.svg'
 import offer from '../public/noun-offer-5373216.svg'
@@ -20,6 +20,8 @@ import Wave from '../public/Wave.svg'
 import PointGreen from '../public/noun-circleGreen.svg'
 import PointRed from '../public/noun-circleRed.svg'
 import User from '../public/noun-user.svg'
+import CardAd from '../public/undraw_stripe_payments_re_chlm.svg'
+import Sidebar from "../components/Sidebar";
 
 const Grid = dynamic(() => import('@mui/material/Unstable_Grid2/Grid2'), {
   ssr: false
@@ -27,7 +29,9 @@ const Grid = dynamic(() => import('@mui/material/Unstable_Grid2/Grid2'), {
 
 export default function Home() {
   const [transactions, setTransactions] = useState([])
-  
+  const matches = useMediaQuery('(max-width:790px)')
+  console.log(matches)
+
   useEffect(() => {
     async function fetchData() {
       await getTransactions("ivoPascal@gmail.com").then(res=> setTransactions(res.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())))// setTransactions(res))
@@ -36,9 +40,23 @@ export default function Home() {
   }, [])
 
   return (
-    <>
+    <Grid
+      container
+      direction='row'
+    >
+      <Sidebar />
+      {/* {!matches ? <Sidebar /> : null} */}
       <Image src={Wave} style={{zIndex: -1, position: 'absolute', rotate: '180deg', width: '100%', height: '200px'}} alt='Wave' />
-      <Grid width='100%' container height='auto' padding='15px' direction='column'>
+      <Grid
+        gap={3}
+        container
+        height='auto'
+        padding='15px'
+        direction='column'
+        sx={{
+          width: matches ? '100%' : "calc(100% - 250px)"
+        }}
+      >
         <Grid display='flex' gap={1} alignItems='center'>
           <Image src={User} width={30} alt='user' />
           <Typography textAlign='center' fontWeight='bold' color='white' variant='p'>
@@ -47,9 +65,7 @@ export default function Home() {
         </Grid>
         <Grid
           container
-          rowGap='15px'
-          columnGap='15px'
-          mt='15px'
+          gap={2}
           alignItems='center'
         >
           <Grid
@@ -66,8 +82,8 @@ export default function Home() {
             alignItems='center'
             justifyContent='space-around'
             sm={6}
-            md={4}
-            lg={3}
+            md={5}
+            lg={5}
             xl={3}
           >
             <Grid display='flex' alignItems='center' flexDirection='column'> 
@@ -124,8 +140,6 @@ export default function Home() {
           </Grid>
           <Grid
             height='150px'
-            // maxWidth='400px'
-            // width='100%'
             xs={12}
             sm={true}
             md={3}
@@ -160,30 +174,44 @@ export default function Home() {
         </Grid>
         {/* <div className={styles.actions}>
           <Link className={styles.toTransaction} href="/">
-            <Image src={PlusPlogo} alt="plusLogo" width={26} />
-            Debit
+          <Image src={PlusPlogo} alt="plusLogo" width={26} />
+          Debit
           </Link>
         </div> */}
+        <Typography
+          style={{
+            textIndent: '5px'
+          }}
+          fontWeight='bold'
+          fontSize='1.2rem'
+          variant='p'
+          marginTop='15px'
+          marginBottom='7px'  
+        >
+          News
+        </Typography>
         <List
           sx={{
             width: '100%',
             overflow: 'auto',
             flexDirection: 'row',
             gap: '15px',
-            display: 'flex'
+            display: 'flex',
+            paddingX: '2px'
           }}
         >
           <ListItem
             sx={{
-              paddingX: '1px',
-              width: 'auto'
+              width: 'auto',
+              padding: 0,
             }}>
             <Box
               position='relative'
               width='300px'
+              height= '160px'
               padding='15px 30px'
-              // bgcolor='#EFF3F5'
-              bgcolor={theme.light.bgBox}
+              bgcolor='#EFF3F5'
+              // bgcolor={theme.light.bgBox}
               borderRadius='20px'
               boxShadow='0px 0px 9px -5px black'
               display='flex'
@@ -194,7 +222,7 @@ export default function Home() {
               <Image
                 src={discountDraw}
                 alt='draw'
-                width={75}
+                width={90}
                 style={{
                   position: 'absolute',
                   bottom: 0,
@@ -235,42 +263,35 @@ export default function Home() {
           >
             <Box
               position='relative'
-              width='300px'
-              height='125px'
-              padding='15px 30px'
+              width='330px'
+              height='160px'
+              // padding='15px 30px'
               bgcolor='#EFF3F5'
               borderRadius='20px'
               boxShadow='0px 0px 9px -5px black'
               display='flex'
-              alignItems='flex-end'
-              justifyContent='center'
-              flexDirection='column'
-            />
-          </ListItem>
-          <ListItem
-            sx={{
-              padding: 0,
-              width: 'auto'
-            }}
-          >
-            <Box
-              position='relative'
-              width='300px'
-              height='125px'
-              padding='15px 30px'
-              bgcolor='#EFF3F5'
-              borderRadius='20px'
-              boxShadow='0px 0px 9px -5px black'
-              display='flex'
-              alignItems='flex-end'
-              justifyContent='center'
-              flexDirection='column'
-            />
+              alignItems='center'
+            >
+              <Image
+                src={CardAd}
+                alt='card ad'
+                style={{
+                  backgroundColor: theme.light.details,
+                  width: '50%',
+                  height: '160px',
+                  borderTopLeftRadius: '20px',
+                  borderBottomLeftRadius: '20px'
+                }}
+              />
+              <Typography fontSize='14px' padding='10px' variant='p'>
+                Pide tu tarjeta ahora y utilizala en tu tienda más cercana.
+              </Typography>
+            </Box>
           </ListItem>
         </List>
-        <Grid width='100%'>
+        {/* <Grid width='100%'>
           <LineChart lineColor='#F16F6F' color='#F16F6F' transactions={transactions} />
-        </Grid>
+        </Grid> */}
         <Grid sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -284,9 +305,9 @@ export default function Home() {
             transactions.map((transaction, index) => {
               return(
                 <ListItem 
-                  style={index === transactions.length - 1 ? {border: 'none'} : null}
-                  key={transaction.id}
-                  className={styles.transactionContainer}
+                style={index === transactions.length - 1 ? {border: 'none'} : null}
+                key={transaction.id}
+                className={styles.transactionContainer}
                 >
                   <ListItemIcon>
                     {/* <Avatar src='../public/shopping-cart.png' alt="shopLogo" /> */}
@@ -317,7 +338,11 @@ export default function Home() {
                         :
                         null
                       }
-                      <Typography textAlign='end' component='p'>
+                      <Typography
+                        textAlign='end'
+                        fontSize='.9rem'
+                        component='p'
+                      >
                         {formatDate(transaction.date).dayAndMonth}
                       </Typography>
                     </div>
@@ -326,12 +351,12 @@ export default function Home() {
             })
           :
           ""
-          }
+        }
         </List>
         </Grid>
       </Grid>
-      <Navbar />
-    </>
+      {matches ? <Navbar /> : ""}
+    </Grid>
   )
 }
 
