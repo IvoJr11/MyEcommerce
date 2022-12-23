@@ -44,9 +44,9 @@ export default function Home() {
       container
       direction='row'
     >
-      <Sidebar />
-      {/* {!matches ? <Sidebar /> : null} */}
-      <Image src={Wave} style={{zIndex: -1, position: 'absolute', rotate: '180deg', width: '100%', height: '200px'}} alt='Wave' />
+      {/* <Sidebar /> */}
+      {!matches ? <Sidebar /> : null}
+      <Image priority={true} src={Wave} style={{zIndex: -1, position: 'absolute', rotate: '180deg', width: '100%', height: '200px'}} alt='Wave' />
       <Grid
         gap={3}
         container
@@ -81,10 +81,10 @@ export default function Home() {
             padding='15px 30px'
             alignItems='center'
             justifyContent='space-around'
-            sm={6}
-            md={5}
+            sm={7}
+            md={6}
             lg={5}
-            xl={3}
+            xl={4}
           >
             <Grid display='flex' alignItems='center' flexDirection='column'> 
               <Typography color={theme.light.lightText} fontSize='14px' variant="p">
@@ -142,9 +142,9 @@ export default function Home() {
             height='150px'
             xs={12}
             sm={true}
-            md={3}
-            lg={3}
-            xl={3}
+            md={5}
+            lg={5}
+            xl={4}
             sx={{
               position: 'relative',
               backgroundColor: '#9778FB',
@@ -273,6 +273,7 @@ export default function Home() {
               alignItems='center'
             >
               <Image
+                priority={true}
                 src={CardAd}
                 alt='card ad'
                 style={{

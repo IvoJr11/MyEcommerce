@@ -89,6 +89,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         log.info("Unsuccess: {}", failed.getMessage());
         Map<String, String> errors = new HashMap<>();
         errors.put("error_message", failed.getMessage());
+        response.setStatus(FORBIDDEN.value());
         response.setContentType(APPLICATION_JSON_VALUE);
         new ObjectMapper().writeValue(response.getOutputStream(), errors);
     }
